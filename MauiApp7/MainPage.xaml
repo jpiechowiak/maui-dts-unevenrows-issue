@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mauiApp7="clr-namespace:MauiApp7"
+             x:Class="MauiApp7.MainPage">
+    <ContentPage.BindingContext>
+        <mauiApp7:MainPageViewModel></mauiApp7:MainPageViewModel>
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <DataTemplate x:Key="EvenTemplate">
+            <ViewCell>
+                <StackLayout BackgroundColor="Beige">
+                    <Label Text="{Binding Text}" Margin="10" />
+                    <Label Text="{Binding Size}" Margin="10" />
+                    <Image Source="{Binding Text}" WidthRequest="{Binding Size}" HeightRequest="{Binding Size}" />
+                </StackLayout>
+            </ViewCell>
+        </DataTemplate>
+        <DataTemplate x:Key="OddTemplate">
+            <ViewCell>
+                <Label Text="{Binding Text}" Margin="10" />
+            </ViewCell>
+        </DataTemplate>
+        <mauiApp7:ListSelector x:Key="MySelector"
+                               EvenTemplate="{StaticResource EvenTemplate}"
+                               OddTemplate="{StaticResource OddTemplate}" />
+    </ContentPage.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>    
+        <ListView ItemsSource="{Binding Items}" HasUnevenRows="True"
+                  ItemTemplate="{StaticResource MySelector}" />
+
+        <Button
+            Grid.Row="1"
+            Text="Tap me" 
+            Command="{Binding LoadDataCommand}"
+            HorizontalOptions="Fill" />
+    </Grid>
+
+</ContentPage>
